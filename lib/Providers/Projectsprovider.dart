@@ -57,9 +57,15 @@ class Projectsprovider extends ChangeNotifier {
 
   addproject(Project project) async {
     final url = Uri.parse('');
+    var data = {
+      "Name": project.name,
+      "Image": project.image,
+      "Link": project.link,
+      "Description": project.description,
+    };
     try {
       var response =
-          await http.post(url, body: jsonEncode(project));
+          await http.post(url, body: jsonEncode(data));
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
             msg: response.body,

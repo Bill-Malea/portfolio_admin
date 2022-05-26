@@ -8,7 +8,7 @@ class FormInputFieldWithIcon extends StatelessWidget {
     required this.validator,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
-    required this.onSaved,
+    required this.onchanged,
     required this.isDescript,
   }) : super(key: key);
   final bool isDescript;
@@ -16,7 +16,7 @@ class FormInputFieldWithIcon extends StatelessWidget {
   final String? Function(String?) validator;
   final TextInputType keyboardType;
   final bool obscureText;
-  final void Function(String?) onSaved;
+  final void Function(String?) onchanged;
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,11 @@ class FormInputFieldWithIcon extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        onSaved: onSaved,
         maxLines: isDescript ? 7 : 1,
         keyboardType: keyboardType,
         obscureText: obscureText,
         validator: validator,
+        onChanged: onchanged,
       ),
     );
   }
