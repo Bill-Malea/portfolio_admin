@@ -102,6 +102,97 @@ class Projectsprovider extends ChangeNotifier {
     }
   }
 
-  editproject(Project id) {}
-  deleteproject(String id) {}
+  editproject(Project project) async {
+    final url = Uri.parse('http.yoururl.example/Projects');
+    var data = {
+      "Name": project.name,
+      "Image": project.image,
+      "Link": project.link,
+      "Description": project.description,
+    };
+    try {
+      var response =
+          await http.patch(url, body: jsonEncode(data));
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+            msg: response.body,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: response.body,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } on SocketException {
+      Fluttertoast.showToast(
+          msg:
+              "Check Your Internet Connection and Try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+  deleteproject(Project project) async {
+    final url = Uri.parse('http.yoururl.example/Projects');
+    var data = {
+      "Name": project.name,
+      "Image": project.image,
+      "Link": project.link,
+      "Description": project.description,
+    };
+    try {
+      var response =
+          await http.delete(url, body: jsonEncode(data));
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+            msg: response.body,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: response.body,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } on SocketException {
+      Fluttertoast.showToast(
+          msg:
+              "Check Your Internet Connection and Try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
 }
