@@ -35,7 +35,6 @@ class Projectsprovider extends ChangeNotifier {
             msg: response.body,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -46,7 +45,6 @@ class Projectsprovider extends ChangeNotifier {
               "Check Your Internet Connection and Try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
