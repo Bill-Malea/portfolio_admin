@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 import 'Models/ProjectsModel.dart';
 
 class AddProjects extends StatefulWidget {
-  const AddProjects({Key? key}) : super(key: key);
+  final Project project;
+
+  const AddProjects({Key? key, required this.project}) : super(key: key);
 
   @override
   State<AddProjects> createState() => _AddProjectsState();
@@ -24,7 +26,7 @@ class _AddProjectsState extends State<AddProjects> {
   Widget build(BuildContext context) {
     upload() {
       final isValid = _key.currentState!.validate();
-      var project = Project(
+      var newproject = Project(
         id: '',
         image: _image,
         description: _description,
@@ -36,11 +38,23 @@ class _AddProjectsState extends State<AddProjects> {
       }
       if (isValid) {
         _key.currentState!.save();
-        Provider.of<Projectsprovider>(context,
-                listen: false)
-            .addproject(project);
+        Provider.of<Projectsprovider>(context, listen: false)
+            .addproject(newproject);
+      } else if (isValid && widget.project.id.isNotEmpty) {
+        var editproject = Project(
+          id: widget.project.id,
+          image: _image,
+          description: _description,
+          link: _link,
+          name: _name,
+        );
+        _key.currentState!.save();
+        Provider.of<Projectsprovider>(context, listen: false)
+            .addproject(editproject);
       }
     }
+
+    var id = widget.project.id;
 
     return SingleChildScrollView(
       child: Form(
@@ -53,16 +67,18 @@ class _AddProjectsState extends State<AddProjects> {
                 height: 20,
               ),
               FormInputFieldWithIcon(
+                initialvalue: id.isEmpty ? '' : widget.project.name,
                 isDescript: false,
                 labelText: 'Name',
                 validator: (val) {
-                  return val!.isEmpty
-                      ? 'Cannot be blank!'
-                      : null;
+                  return val!.isEmpty ? 'Cannot be blank!' : null;
                 },
                 onchanged: (val) {
                   setState(() {
                     _name = val!;
+                    if (kDebugMode) {
+                      print(val);
+                    }
                   });
                 },
               ),
@@ -70,12 +86,11 @@ class _AddProjectsState extends State<AddProjects> {
                 height: 10,
               ),
               FormInputFieldWithIcon(
+                initialvalue: id.isEmpty ? '' : widget.project.image,
                 isDescript: false,
                 labelText: 'Image',
                 validator: (val) {
-                  return val!.isEmpty
-                      ? 'Cannot be blank!'
-                      : null;
+                  return val!.isEmpty ? 'Cannot be blank!' : null;
                 },
                 onchanged: (val) {
                   setState(() {
@@ -87,12 +102,11 @@ class _AddProjectsState extends State<AddProjects> {
                 height: 10,
               ),
               FormInputFieldWithIcon(
+                initialvalue: id.isEmpty ? '' : widget.project.link,
                 isDescript: false,
                 labelText: 'Link',
                 validator: (val) {
-                  return val!.isEmpty
-                      ? 'Cannot be blank!'
-                      : null;
+                  return val!.isEmpty ? 'Cannot be blank!' : null;
                 },
                 onchanged: (val) {
                   setState(() {
@@ -104,11 +118,10 @@ class _AddProjectsState extends State<AddProjects> {
                 height: 10,
               ),
               FormInputFieldWithIcon(
+                initialvalue: id.isEmpty ? '' : widget.project.description,
                 labelText: 'Description',
                 validator: (val) {
-                  return val!.isEmpty
-                      ? 'Cannot be blank!'
-                      : null;
+                  return val!.isEmpty ? 'Cannot be blank!' : null;
                 },
                 onchanged: (val) {
                   setState(() {

@@ -9,10 +9,11 @@ class FormInputFieldWithIcon extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     required this.onchanged,
-    required this.isDescript,
+    required this.isDescript, required this.initialvalue,
   }) : super(key: key);
   final bool isDescript;
   final String labelText;
+  final String initialvalue;
   final String? Function(String?) validator;
   final TextInputType keyboardType;
   final bool obscureText;
@@ -22,6 +23,7 @@ class FormInputFieldWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextFormField(
+        initialValue: initialvalue,
         style: const TextStyle(
           fontSize: 16,
         ),
@@ -30,8 +32,7 @@ class FormInputFieldWithIcon extends StatelessWidget {
             vertical: 5,
             horizontal: 10,
           ),
-          floatingLabelBehavior:
-              FloatingLabelBehavior.never,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),

@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_admin/Providers/Projectsprovider.dart';
+import 'package:portfolio_admin/Widgets/modalbottomsheet.dart';
+import 'package:provider/provider.dart';
+
+import 'Editproject.dart';
 
 class Projects extends StatelessWidget {
   const Projects({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var project = Provider.of<Projectsprovider>(context).projects();
+
+    _deleteproject(String id,String name) async {
+      bool isconfirmed = await deleteBottomSheet(context, name);
+      if (isconfirmed) {}
+    }
+
     return ListView.builder(
-        itemCount: 4,
+        itemCount: project.length,
         itemBuilder: (context, index) {
           return Container(
             margin: const EdgeInsets.all(10),
@@ -16,35 +28,42 @@ class Projects extends StatelessWidget {
                   contentPadding: const EdgeInsets.only(
                     top: 5,
                   ),
-                  leading: const CircleAvatar(
+                  leading: CircleAvatar(
                     radius: 30.0,
-                    backgroundImage: NetworkImage(
-                        "https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png "),
+                    backgroundImage: NetworkImage(project[index].image),
                     backgroundColor: Colors.transparent,
                   ),
-                  title: const Text(
-                    'Foodie',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                  title: Text(
+                    project[index].name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                  subtitle: const Text(
-                    'A food delivery mobile app that enables Foodie a food delivery company to seemlesly reach out their customers. The app intergrates, authentication,cloud functions and local payment modes intergration',
-                    style: TextStyle(fontSize: 11),
+                  subtitle: Text(
+                    project[index].description,
+                    style: const TextStyle(fontSize: 11),
                   ),
                   trailing: Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: (() {}),
+                        onTap: (() {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => Editproject(
+                                project: project[index],
+                              ),
+                            ),
+                          );
+                        }),
                         child: const Icon(
                           Icons.edit,
                           size: 23,
                         ),
                       ),
                       InkWell(
-                        onTap: (() {}),
+                        onTap: () {
+                          _deleteproject(project[index].id,project[index].name,);
+                        },
                         child: const Icon(
                           Icons.delete,
                           size: 23,

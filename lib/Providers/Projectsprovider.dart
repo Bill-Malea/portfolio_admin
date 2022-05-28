@@ -7,7 +7,29 @@ import 'package:portfolio_admin/Models/ProjectsModel.dart';
 import 'package:http/http.dart' as http;
 
 class Projectsprovider extends ChangeNotifier {
-  final List<Project> _projects = [];
+  final List<Project> _projects = [
+    Project(
+        description:
+            'A food delivery mobile app that enables Foodie a food delivery company to seemlesly reach out their customers. The app intergrates, authentication,cloud functions and local payment modes intergration',
+        name: 'Foodie',
+        link: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png',
+        id: DateTime.now().toIso8601String(),
+        image: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png'),
+    Project(
+        description:
+            'A food delivery mobile app that enables Foodie a food delivery company to seemlesly reach out their customers. The app intergrates, authentication,cloud functions and local payment modes intergration',
+        name: 'Foodie',
+        link: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png',
+        id: DateTime.now().toIso8601String(),
+        image: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png'),
+    Project(
+        description:
+            'A food delivery mobile app that enables Foodie a food delivery company to seemlesly reach out their customers. The app intergrates, authentication,cloud functions and local payment modes intergration',
+        name: 'Foodie',
+        link: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png',
+        id: DateTime.now().toIso8601String(),
+        image: 'https://ksnmedia.com/wp-content/uploads/2021/08/mpesa.png'),
+  ];
 
   List<Project> projects() {
     return [..._projects];
@@ -18,8 +40,7 @@ class Projectsprovider extends ChangeNotifier {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        var data = json.decode(response.body)
-            as Map<String, dynamic>;
+        var data = json.decode(response.body) as Map<String, dynamic>;
         var projects = [];
         data.forEach((id, _data) {
           projects.add(Project(
@@ -41,8 +62,7 @@ class Projectsprovider extends ChangeNotifier {
       }
     } on SocketException {
       Fluttertoast.showToast(
-          msg:
-              "Check Your Internet Connection and Try again",
+          msg: "Check Your Internet Connection and Try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.red,
@@ -64,8 +84,7 @@ class Projectsprovider extends ChangeNotifier {
       "Description": project.description,
     };
     try {
-      var response =
-          await http.post(url, body: jsonEncode(data));
+      var response = await http.post(url, body: jsonEncode(data));
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
             msg: response.body,
@@ -87,8 +106,7 @@ class Projectsprovider extends ChangeNotifier {
       }
     } on SocketException {
       Fluttertoast.showToast(
-          msg:
-              "Check Your Internet Connection and Try again",
+          msg: "Check Your Internet Connection and Try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -111,8 +129,7 @@ class Projectsprovider extends ChangeNotifier {
       "Description": project.description,
     };
     try {
-      var response =
-          await http.patch(url, body: jsonEncode(data));
+      var response = await http.patch(url, body: jsonEncode(data));
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
             msg: response.body,
@@ -134,8 +151,7 @@ class Projectsprovider extends ChangeNotifier {
       }
     } on SocketException {
       Fluttertoast.showToast(
-          msg:
-              "Check Your Internet Connection and Try again",
+          msg: "Check Your Internet Connection and Try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -158,8 +174,7 @@ class Projectsprovider extends ChangeNotifier {
       "Description": project.description,
     };
     try {
-      var response =
-          await http.delete(url, body: jsonEncode(data));
+      var response = await http.delete(url, body: jsonEncode(data));
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
             msg: response.body,
@@ -181,8 +196,7 @@ class Projectsprovider extends ChangeNotifier {
       }
     } on SocketException {
       Fluttertoast.showToast(
-          msg:
-              "Check Your Internet Connection and Try again",
+          msg: "Check Your Internet Connection and Try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
